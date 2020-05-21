@@ -38,6 +38,41 @@ public:
 
 	void ConnectBus(Bus* n) { bus = n; }
 
+	void clock();
+	void reset();
+	void irq();
+	void nmi();
+
+private:
+	uint8_t fetched = 0x00;
+	uint16_t temp = 0x0000;
+	uint16_t addr_abs = 0x0000;
+	uint16_t addr_rel = 0x00;
+	uint8_t opcode = 0x00;
+	uint8_t cycles = 0;
+	uint32_t clock_count = 0;
+
+	Bus* bus = nullptr;
+	uint8_t read(uint16_t a);
+	void write(uint16_t a, uint8_t d);
+
+	uint8_t fetch();
+
+	// Convenience functions for status access
+	uint8_t GetFlag(FLAGS6502 f);
+	void SetFlag(FLAGS6502 f, bool v);
+
+	struct INSTRUCTION
+	{
+		std::string name;
+		uint8_t(olc6502::* operate)(void) = nullptr;
+		uint8_t(olc6502::* addrmode)(void) = nullptr;
+		uint8_t cycles = 0;
+	};
+
+	std::vector<INSTRUCTION> lookup;
+
+private:
 	// Addressing Modes
 	uint8_t IMP();	uint8_t IMM();
 	uint8_t ZP0();	uint8_t ZPX();
@@ -63,38 +98,5 @@ public:
 	uint8_t TSX();	uint8_t TXA();	uint8_t TXS();	uint8_t TYA();
 
 	uint8_t XXX();
-
-	void clock();
-	void reset();
-	void irq();
-	void nmi();
-
-	uint8_t fetch();
-
-private:
-	uint8_t fetched = 0x00;
-	uint16_t temp = 0x0000;
-	uint16_t addr_abs = 0x0000;
-	uint16_t addr_rel = 0x00;
-	uint8_t opcode = 0x00;
-	uint8_t cycles = 0;
-
-	Bus* bus = nullptr;
-	uint8_t read(uint16_t a);
-	void write(uint16_t a, uint8_t d);
-
-	// Convenience functions for status access
-	uint8_t GetFlag(FLAGS6502 f);
-	void SetFlag(FLAGS6502 f, bool v);
-
-	struct INSTRUCTION
-	{
-		std::string name;
-		uint8_t(olc6502::* operate)(void) = nullptr;
-		uint8_t(olc6502::* addrmode)(void) = nullptr;
-		uint8_t cycles = 0;
-	};
-
-	std::vector<INSTRUCTION> lookup;
 };
 

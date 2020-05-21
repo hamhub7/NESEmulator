@@ -112,8 +112,7 @@ public:
 
 		// Convert hex string into bytes for RAM
 		std::stringstream ss;
-		//ss << "A2 A0 8E 00 00 A2 03 8E 01 00 AC 00 00 A9 00 18 6D 01 00 88 D0 FA 8D 02 00 EA EA EA";
-		ss  <<  "A0 A0 8D 00 00 A0 03 8D 01 00 AC 00 00";
+		ss << "A2 0A 8E 00 00 A2 03 8E 01 00 AC 00 00 A9 00 18 6D 01 00 88 D0 FA 8D 02 00 EA EA EA 4C 19 80";
 		uint16_t nOffset = 0x8000;
 		while (!ss.eof())
 		{

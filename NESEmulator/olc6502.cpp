@@ -46,6 +46,7 @@ void olc6502::clock()
 	{
 		opcode = read(pc);
 		pc++;
+		SetFlag(U, true);
 
 		// Get starting number of cycles
 		cycles = lookup[opcode].cycles;
@@ -55,8 +56,11 @@ void olc6502::clock()
 		uint8_t additional_cycle2 = (this->*lookup[opcode].operate)(); // Call operation function
 
 		cycles += (additional_cycle1 & additional_cycle2);
+
+		SetFlag(U, true); // Bit overkill, but im trying everything I can
 	}
 
+	clock_count++;
 	cycles--;
 }
 
@@ -635,7 +639,7 @@ uint8_t olc6502::LDA()
 {
 	fetch();
 	a = fetched;
-	SetFlag(Z, a = 0x00);
+	SetFlag(Z, a == 0x00);
 	SetFlag(N, a & 0x80);
 	return 1;
 }
@@ -644,7 +648,7 @@ uint8_t olc6502::LDX()
 {
 	fetch();
 	x = fetched;
-	SetFlag(Z, x = 0x00);
+	SetFlag(Z, x == 0x00);
 	SetFlag(N, x & 0x80);
 	return 1;
 }
@@ -653,7 +657,7 @@ uint8_t olc6502::LDY()
 {
 	fetch();
 	y = fetched;
-	SetFlag(Z, y = 0x00);
+	SetFlag(Z, y == 0x00);
 	SetFlag(N, y & 0x80);
 	return 1;
 }
