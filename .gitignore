@@ -5,5 +5,7 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+*.suo
+*.db
 /Debug
 /NESEmulator/Debug

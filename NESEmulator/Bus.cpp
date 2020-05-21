@@ -6,7 +6,7 @@ Bus::Bus()
 	cpu.ConnectBus(this);
 
 	// Clear RAM, just in case
-	for (auto& i : ram) i = 0x00;
+	for (auto& i : ram) i = 0xEA;
 }
 
 Bus::~Bus()

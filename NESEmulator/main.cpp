@@ -112,7 +112,10 @@ public:
 
 		// Convert hex string into bytes for RAM
 		std::stringstream ss;
-		ss << "A2 0A 8E 00 00 A2 03 8E 01 00 AC 00 00 A9 00 18 6D 01 00 88 D0 FA 8D 02 00 EA EA EA 4C 19 80";
+		// ss << "A2 0A 8E 00 00 A2 03 8E 01 00 AC 00 00 A9 00 18 6D 01 00 88 D0 FA 8D 02 00 EA EA EA 4C 19 80"; // Multiply 2 numbers
+		ss << "A0 78  A2 05  A9 15  20 0C 80  4C 09 80 " << " E0 03  B0 01  88  49 7F  C0 C8  7D 2C 80  85 06  98  20 28 80  E5 06  85 06  98  4A  4A  18  65 06 " << " 69 07  90 FC  60 " << " 01 05 06 03 01 05 03 00 04 02 06 04"; // Weekday
+		// ss << "A9 07  A2 01  86 00  38  E9 03  A8  A9 02  85 01  18  A6 01  65 00  85 01  86 00  88  D0 F5"; // Fib calculator
+		// ss << "A9 01  85 00  A9 00  18  85 01  A8  A5 00  65 01  18  85 00  A8  A5 01  65 00  90 EE"; // Fib sequence
 		uint16_t nOffset = 0x8000;
 		while (!ss.eof())
 		{
