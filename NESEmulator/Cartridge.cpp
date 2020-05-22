@@ -28,8 +28,9 @@ Cartridge::Cartridge(const std::string& sFileName)
 			ifs.seekg(512, std::ios_base::cur);
 		}
 
-		// Determine Mapper ID
+		// Determine Mapper ID and Mirror mode
 		nMapperID = ((header.mapper2 >> 4) << 4) | (header.mapper1 >> 4);
+		mirror = (header.mapper1 & 0x01) ? VERTICAL : HORIZONTAL;
 
 		// "Discover" File Format
 		uint8_t nFileType = 1;
@@ -45,7 +46,14 @@ Cartridge::Cartridge(const std::string& sFileName)
 			ifs.read((char*)vPRGMemory.data(), vPRGMemory.size());
 
 			nCHRBanks = header.chr_rom_chunks;
-			vCHRMemory.resize(nCHRBanks * 8192);
+			if (nCHRBanks == 0)
+			{
+				vCHRMemory.resize(8192);
+			}
+			else
+			{
+				vCHRMemory.resize(nCHRBanks * 8192);
+			}
 			ifs.read((char*)vCHRMemory.data(), vCHRMemory.size());
 		}
 		if (nFileType == 2)

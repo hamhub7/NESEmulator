@@ -23,6 +23,8 @@ public: // Devices on bus
 	// The cartridge or "GamePak"
 	std::shared_ptr<Cartridge> cart;
 
+	uint8_t controller[2];
+
 public: // Bus read and write
 	void cpuWrite(uint16_t addr, uint8_t data);
 	uint8_t cpuRead(uint16_t addr, bool bReadOnly = false);
@@ -35,5 +37,7 @@ public: // System interface
 private:
 	// A count of how many clocks have passed
 	uint32_t nSystemClockCounter = 0;
+
+	uint8_t controller_state[2];
 };
 

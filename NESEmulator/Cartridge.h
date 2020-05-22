@@ -12,6 +12,14 @@ public:
 	Cartridge(const std::string& sFileName);
 	~Cartridge();
 
+	enum MIRROR
+	{
+		HORIZONTAL,
+		VERTICAL,
+		ONESCREEN_LO,
+		ONESCREEN_HI,
+	} mirror = HORIZONTAL;
+
 private:
 	std::vector<uint8_t> vPRGMemory;
 	std::vector<uint8_t> vCHRMemory;

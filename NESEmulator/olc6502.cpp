@@ -669,7 +669,7 @@ uint8_t olc6502::LSR()
 	temp = fetched >> 1;
 	SetFlag(Z, (temp & 0x00FF) == 0x0000);
 	SetFlag(N, temp & 0x0080);
-	if (lookup[opcode].addrmode = &olc6502::IMP)
+	if (lookup[opcode].addrmode == &olc6502::IMP)
 	{
 		a = temp & 0x00FF;
 	}
@@ -762,8 +762,8 @@ uint8_t olc6502::ROR()
 {
 	fetch();
 	temp = (uint16_t)(GetFlag(C) << 7) | (fetched >> 1);
-	SetFlag(C, temp & 0xFF00);
-	SetFlag(Z, (temp & 0x00FF) == 0x0000);
+	SetFlag(C, fetched & 0x01);
+	SetFlag(Z, (temp & 0x00FF) == 0x00);
 	SetFlag(N, temp & 0x0080);
 	if (lookup[opcode].addrmode == &olc6502::IMP)
 	{
@@ -807,9 +807,9 @@ uint8_t olc6502::SBC()
 	uint16_t value = ((uint16_t)fetched) ^ 0x00FF;
 	temp = (uint16_t)a + value + (uint16_t)GetFlag(C);
 	SetFlag(C, temp & 0xFF00);
-	SetFlag(Z, (temp & 0x00FF) == 0);
+	SetFlag(Z, ((temp & 0x00FF) == 0));
 	SetFlag(N, temp & 0x0080);
-	SetFlag(V, (~((uint16_t)a ^ (uint16_t)fetched) & ((uint16_t)a ^ (uint16_t)temp)) & 0x0080);
+	SetFlag(V, (temp ^ (uint16_t)a) & (temp ^ value) & 0x0080);
 	a = temp & 0x00FF;
 	return 1;
 }

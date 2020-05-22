@@ -64,5 +64,14 @@
     <None Include="nestest.nes">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="dk.nes">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="smb.nes">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ice.nes">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

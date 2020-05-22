@@ -156,7 +156,10 @@
     <ClCompile Include="olc6502.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dk.nes" />
+    <None Include="ice.nes" />
     <None Include="nestest.nes" />
+    <None Include="smb.nes" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
